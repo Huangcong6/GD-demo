@@ -15,9 +15,9 @@ def adamw_update(t, x, m, v, lr, beta, type, weigh_decay=1e-2):
 
     m_hat = m / (1 - beta[0] ** t)
     v_hat = v / (1 - beta[1] ** t)
-
-    x = x - lr * (m_hat + weigh_decay * x) / (np.sqrt(v_hat) + 1e-4) 
-
+    ad_lr = lr / (1-beta[1]*np.sqrt(grad_x1**2 + grad_x2**2))
+    x = x - ad_lr * (m_hat + weigh_decay * x) / (np.sqrt(v_hat) + 1e-4) 
+    
     new_x = copy.copy(x)
     new_m = copy.copy(m)
     new_v = copy.copy(v)
